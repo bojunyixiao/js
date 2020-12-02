@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <!-- 总结：
+            1、data信息直接拿，可双括号中计算(即JS操作，以下同)
+            2、定义computed，在其中计算，双括号中名字直接拿，基于缓存
+            3、定义methods，在其中计算，双括号中方法名直接拿，基于方法，每次都会调用
+            4、记住点：(1)、计算可在HTML值(双括号)中，也可在vue方法中
+                      (2)、computed基于缓存(调名字)，methods基于方法(调方法，有括号)，性能差异
+                      (3)、computed中的set可改变data的值(非重点略过，详情看：https://www.runoob.com/try/try.php?filename=vue2-str-reverse4)
+     -->
+    <div id="app">
+
+
+        <!-- 其他不变，可仅在双括号中使用JS语法计算 -->
+        <p>双括号中计算的：{{ message.split('').reverse().join('') }}</p>
+
+
+        <!-- 在computed中计算的，基于缓存，性能更好-->
+        <p>computed中计算的: {{ reversedMessage }}</p>
+
+
+        <!-- methods中计算的，基于函数，每次都会调用函数-->
+        <p>methods中计算的: {{ reversedMessage2() }}</p>
+
+
+        <!-- computed中的set可改变data的值(非重点略过，详情看：https://www.runoob.com/try/try.php?filename=vue2-str-reverse4) -->
+    </div>
+
+
+    <script>
+        // var是为了后面的this有指向
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          message: 'Runoob!'
+        },
+        computed: {
+            // 计算属性的 getter
+            reversedMessage: function () {
+            // `this` 指向 vm 实例
+            return this.message.split('').reverse().join('')
+            }
+        },
+        methods: {
+            reversedMessage2: function () {
+            return this.message.split('').reverse().join('')
+            }
+        }
+      })
+    </script>
+</body>
+</html>

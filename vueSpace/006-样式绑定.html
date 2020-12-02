@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>样式绑定</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <style>
+        .base {
+            width: 100px;
+            height: 100px;
+        }
+        .active {
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+        .text-danger {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 总结：
+            1、v-bind:设置样式属性，v-bind:class="{ 'active': isActive }"通过对象设置
+            2、class="static active text-danger" 后面的样式会覆盖前边的
+            3、记住点：(1)、class绑定 or style（内联）绑定 (v-bind:class=''   v-bind:style='')
+                      (2)、每一个都分为对象式绑定 和 数组式绑定  (v-bind:class='{'active': true, 'text-danger': false}'   v-bind:style='[activeClass, errorClass]' data里找值)
+                      (3)、经典常用式：classObject and styleObject，使用了computed
+                           小结：连接处为：html：名字lbj   vue：对象lbj:{color: 'green',fontSize: '30px'}
+     -->
+    <div id="app">
+
+        <!-- class式 -->
+        <!-- 使其变为： <div class="active"></div> -->
+        <div v-bind:class="{ 'active': isActive }"></div>
+
+        <!-- 使其变为：<div class="static active text-danger"></div> -->
+        <div class="static" v-bind:class="{ 'active': isActive, 'text-danger': hasError }"></div>
+
+        <!-- 经典、常用、强大 -->
+        <div v-bind:class="classObject"></div>
+
+        <!-- 数组形式,使其变为：<div class="active text-danger"></div> -->
+        <div v-bind:class="[activeClass, errorClass]"></div>
+
+        <!-- 三元表达式 -->
+        <div v-bind:class="[errorClass ,isActive ? activeClass : '']"></div>
+
+
+        <!-- style式 -->
+        <!-- 对象式 -->
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">菜鸟教程</div>
+
+        <!-- 数组式 -->
+        <div v-bind:style="[baseStyles, overridingStyles]">菜鸟教程</div>
+
+        <!-- 经典、常用、强大 -->
+        <div v-bind:style="styleObject">菜鸟教程</div>
+    </div>
+      
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          isActive: true,
+          hasError: true,
+          error: {
+            value: true,
+            type: 'fatal'
+          },
+          activeClass: 'active',
+          errorClass: 'text-danger',
+          activeColor: 'green',
+          fontSize: 30,
+          baseStyles: {
+            color: 'green',
+            fontSize: '30px'
+          },
+          overridingStyles: {
+            'font-weight': 'bold'
+          },
+        //   style的强大的
+          styleObject: {
+            color: 'green',
+            fontSize: '30px'
+          }
+        },
+        // class的强大的
+        computed: {
+            classObject: function () {
+            return {
+                base: true,
+                active: this.isActive && !this.error.value,
+                'text-danger': this.error.value && this.error.type === 'fatal',
+            }
+            }
+        }
+      })
+    </script>
+</body>
+</html>

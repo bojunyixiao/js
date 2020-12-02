@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>监听属性</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+    <!-- 总结：
+            1、$watch为监听的实例方法
+            2、可监听点击事件改变的data值变化情况
+            3、可监听Vue里的watch实时调取方法后的改变值，例子input值
+            4、总结：(1)、vm.$watch('kilometers', function (newValue, oldValue) {}
+                        kilometers：data里的监听值
+                        newValue：变化后的值
+                        oldValue：变化前的值
+                    (2)、细节：@click为vue属性写法
+                                input里的v-model属性值为其中的值，相当于value
+                                input中的值改变，便会调用vue里的watch值，实时改变
+                    (3)、分两部分，一部分实时改变，一部分监听
+    -->
+    <div id = "app">
+
+
+        <!-- 监听点击事件 -->
+        <p style = "font-size:25px;">计数器: {{ counter }}</p>
+        <button @click = "counter++" style = "font-size:25px;">点我</button>
+        <br/><br/>
+
+
+        <!-- 监听input输入事件 -->
+        千米 : <input type = "text" v-model = "kilometers">
+        米 : <input type = "text" v-model = "meters">
+
+
+    </div>
+    <p id="info"></p>
+
+    <script type = "text/javascript">
+        var vm = new Vue({
+           el: '#app',
+           data: {
+                counter: 1,
+                kilometers : 0,
+                meters:0
+           },
+           watch : {
+               kilometers:function(val) {
+                  this.kilometers = val;
+                  this.meters = this.kilometers * 1000
+               },
+               meters : function (val) {
+                  this.kilometers = val/ 1000;
+                  this.meters = val;
+               }
+            }
+        });
+
+        // 监听的点击
+        vm.$watch('counter', function(nval, oval) {
+           alert('计数器值的变化 :' + oval + ' 变为 ' + nval + '!');
+        });
+
+        // 监听的input
+        vm.$watch('kilometers', function (newValue, oldValue) {
+			// 这个回调将在 vm.kilometers 改变后调用
+		    document.getElementById ("info").innerHTML = "修改前值为: " + oldValue + "，修改后值为: " + newValue;
+		})
+    </script>
+</body>
+</html>

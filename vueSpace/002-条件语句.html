@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件语句</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <!-- 总结：
+            1、v-if 约等于 v-show
+            2、属性v-if等中可以添加算式
+            3、记住两点：(1)、HTML中的属性值 == vue中定义的data值(接口处) 
+                        (2)、v-if是处理显不显示的(true、false)，Elements里都不显示
+                        (3)、属性双引号中的写法 == {{}}大括号中的
+    -->
+    <div id="app">
+
+
+        <!-- v-if 约等于 v-show -->
+        <p v-if="seen">现在你看到我了</p>
+        <template v-if="ok">
+        <h1>菜鸟教程</h1>
+          <p>学的不仅是技术，更是梦想！</p>
+          <p>哈哈哈，打字辛苦啊！！！</p>
+        </template>
+
+
+        <!-- v-else-if应用  -->
+        <div v-if="type === 'A'">
+            A
+          </div>
+          <div v-else-if="type === 'B'">
+            B
+          </div>
+          <div v-else-if="type === 'C'">
+            C
+          </div>
+          <div v-else>
+            Not A/B/C
+          </div>
+
+
+    </div>
+    
+    <script>
+        new Vue({
+          el: '#app',
+          data: {
+            seen: false,
+            ok: true,
+            type: 'B'
+          }
+        })
+        </script>
+</body>
+</html>

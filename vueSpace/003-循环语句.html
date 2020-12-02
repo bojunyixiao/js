@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>循环语句</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <!-- 总结：
+            1、v-for在哪个标签上，其和其子代变回被循环
+            2、template标签（模板标签F12不会显示，仅会显示其子代）
+            3、可循环数组，也可循环对象（key也可循环出来）
+            4、可直接循环数字，不需要data
+            5、记住三点：(1)、数组循环 (2)、对象循环 (3)、数字直接循环
+    -->
+    <div id="app">
+
+
+        <!-- 数字开头循环 -->
+        <ol>
+          <li v-for="site in sites">
+            {{ site.name }}
+          </li>
+        </ol>
+        <!-- 点开头循环 -->
+        <ul>
+            <template v-for="site in sites">
+              <li>{{ site.name }}</li>
+              <li>--------------</li>
+            </template>
+        </ul>
+
+
+        <!-- 以上是通过数组循环、以下连着三个是通过对象循环 -->
+        <ul>
+            <li v-for="value in object">
+            {{ value }}
+            </li>
+        </ul>
+        <!-- 把对象的key也显示并循环 -->
+        <ul>
+            <li v-for="(value, key) in object">
+            {{ key }} : {{ value }}
+            </li>
+        </ul>
+        <!-- 对象的key、index（索引）也可循环，就脱裤子放屁呗 -->
+        <ul>
+            <li v-for="(value, key, index) in object">
+             {{ index }}. {{ key }} : {{ value }}
+            </li>
+        </ul>
+
+
+        <!-- in + 数字 可直接循环数字，不需要data -->
+        <ul>
+            <li v-for="n in 10">
+             {{ n }}
+            </li>
+        </ul>
+
+
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          sites: [
+            { name: 'Runoob' },
+            { name: 'Google' },
+            { name: 'Taobao' }
+          ],
+          object: {
+            name: '菜鸟教程',
+            url: 'http://www.runoob.com',
+            slogan: '学的不仅是技术，更是梦想！'
+          }
+        }
+      })
+      </script>
+</body>
+</html>
