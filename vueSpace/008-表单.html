@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <!-- 总结：
+            1、表单：v-model 双向绑定
+            2、复选框：如果是一个为逻辑值，如果是多个则绑定到同一个数组
+            3、单选按钮：value="Google" v-model="picked" 绑定
+            4、select列表：select里的v-model="selected" 和option里的value一致
+
+
+     -->
+    <div id="app">
+        <p>input 元素：</p>
+        <input v-model="message" placeholder="编辑我……">
+        <p>消息是: {{ message }}</p>
+          
+        <p>textarea 元素：</p>
+        <p style="white-space: pre">{{ message2 }}</p>
+        <textarea v-model="message2" placeholder="多行文本输入……"></textarea>
+    </div>
+      
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Runoob',
+          message2: '菜鸟教程\r\nhttp://www.runoob.com'
+        }
+      })
+    </script>
+</body>
+</html>
